@@ -50,5 +50,24 @@ const deleteContacts = createAsyncThunk(
     }
   },
 );
+const editContacts = createAsyncThunk(
+  'contacts/editContacts',
+  async ({ id, name, number }, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistToken = state.auth.token;
+    tokenForFetch.set(persistToken);
+    try {
+      await axios.patch(`/contacts/${id}`, {
+        name,
+        number,
+      });
+      return id;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
 
-export { fetchContacts, addContacts, deleteContacts };
+
+
+export { fetchContacts, addContacts, deleteContacts, editContacts };

@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import {
   fetchContacts,
   deleteContacts,
+  editContacts,
 } from '../redux/contacts/contact-operations';
 import { filterContacts } from '../redux/contacts/contact-actions';
 import s from './ContactsPage.module.css';
@@ -34,6 +35,8 @@ export default function ContactsPage() {
   const findName = e => {
     dispatch(filterContacts(e.target.value));
   };
+  const onEditContact = id => dispatch(editContacts(id));
+
 
   return (
     <>
@@ -46,7 +49,7 @@ export default function ContactsPage() {
         {errorMessage && <TechInfo message={errorMessage} />}
         {isLoading && <TechInfo message={'Loading...'} />}
         {contactsList.length !== 0 && (
-          <ContactList contacts={contactsList} onBtnClick={onDeleteContact} />
+          <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} />
         )}
       </Section>
     </>

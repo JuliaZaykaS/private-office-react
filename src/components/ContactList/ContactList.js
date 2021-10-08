@@ -1,7 +1,7 @@
 import { Button, ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
-export default function ContactList({ contacts, onBtnClick }) {
+export default function ContactList({ contacts, onBtnClick, onEditBtnClick }) {
   return (
     <ListGroup variant="flush" className={s.contactList}>
       {contacts.map(({ id, name, number }) => (
@@ -9,6 +9,9 @@ export default function ContactList({ contacts, onBtnClick }) {
           <span className={s.contactInfo}>
             {name}: {number}
           </span>
+          <Button variant="outline-danger" onClick={() => onEditBtnClick(id)}>
+            Edit
+          </Button>
           <Button variant="outline-danger" onClick={() => onBtnClick(id)}>
             Delete
           </Button>
