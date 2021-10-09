@@ -6,11 +6,13 @@ import {
   fetchContacts,
   addContacts,
   deleteContacts,
+  editContacts,
 } from './contact-operations';
 
 const contacts = createReducer([], {
   [fetchContacts.fulfilled]: (_, action) => action.payload,
   [addContacts.fulfilled]: (state, action) => [...state, action.payload],
+  [editContacts.fulfilled]: (state, action) => [...state, action.payload],
   [deleteContacts.fulfilled]: (state, action) =>
     state.filter(contact => contact.id !== action.payload),
 });
@@ -26,6 +28,7 @@ const isDisabledForm = createReducer('', {
 const error = createReducer(null, {
   [fetchContacts.rejected]: (_, action) => action.payload,
   [addContacts.rejected]: (_, action) => action.payload,
+  [editContacts.rejected]: (_, action) => action.payload,
   [deleteContacts.rejected]: (_, action) => action.payload,
   [fetchContacts.pending]: () => null,
   [addContacts.pending]: () => null,
@@ -35,12 +38,15 @@ const error = createReducer(null, {
 const isLoading = createReducer(false, {
   [fetchContacts.pending]: () => true,
   [addContacts.pending]: () => true,
+  [editContacts.pending]: () => true,
   [deleteContacts.pending]: () => true,
   [fetchContacts.fulfilled]: () => false,
   [addContacts.fulfilled]: () => false,
+  [editContacts.fulfilled]: () => false,
   [deleteContacts.fulfilled]: () => false,
   [fetchContacts.rejected]: () => false,
   [addContacts.rejected]: () => false,
+  [editContacts.rejected]: () => false,
   [deleteContacts.rejected]: () => false,
 });
 

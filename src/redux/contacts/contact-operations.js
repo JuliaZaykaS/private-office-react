@@ -57,11 +57,15 @@ const editContacts = createAsyncThunk(
     const persistToken = state.auth.token;
     tokenForFetch.set(persistToken);
     try {
-      await axios.patch(`/contacts/${id}`, {
+      const contacts = await axios.patch(`/contacts/${id}`, {
+      // const contact = await axios.put(`/contacts/${id}`, {
+        // id,
         name,
         number,
       });
-      return id;
+      // console.log(contact);
+      // return id;
+      return contacts.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

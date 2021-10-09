@@ -19,7 +19,8 @@ export default function ContactList({
           number={contact.number}
           onBtnClick={() => onBtnClick(contact.id)}
           onEditBtnClick={() => onEditBtnClick(contact.id)}
-          disabled={disabled}
+          // disabled={disabled}
+          // disabled={() => onEditBtnClick(contact.id)}
           contact={contact}
         ></ContactListItem>
       ))}

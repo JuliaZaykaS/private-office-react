@@ -6,8 +6,12 @@ import { addContacts } from '../../redux/contacts/contact-operations';
 import { Form, Button } from 'react-bootstrap';
 
 export default function ContactForm() {
+// export default function ContactForm({ contact, dispatchFunc }) {
+  // const { name, number } = contact;
   const [name, setName] = useState('');
+  // const [formName, setFormName] = useState(contact?.name);
   const [number, setNumber] = useState('');
+  // const [formNumber, setFormNumber] = useState(contact?.number);
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
@@ -23,7 +27,7 @@ export default function ContactForm() {
     }
   };
 
-  const onSubmitContact = e => {
+  const onSubmitContact = (e) => {
     e.preventDefault();
     setName('');
     setNumber('');
@@ -38,6 +42,7 @@ export default function ContactForm() {
     }
 
     dispatch(addContacts({ name, number }));
+    // dispatch(dispatchFunc({ formName, formNumber }));
   };
 
   return (
@@ -51,6 +56,7 @@ export default function ContactForm() {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
+          // value={contact?.name || formName}
           value={name}
           onChange={onChangeInput}
         />
@@ -65,6 +71,7 @@ export default function ContactForm() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
+          // value={contact?.number || formNumber}
           value={number}
           onChange={onChangeInput}
         />

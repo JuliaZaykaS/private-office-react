@@ -10,8 +10,7 @@ import {
   getError,
   getIsLoading,
   getContacts,
-  getDisabled,
-
+  // getDisabled,
 } from '../redux/contacts/contact-selectors';
 // import {
 //   getFilteredContacts,
@@ -25,10 +24,13 @@ import {
   fetchContacts,
   deleteContacts,
   editContacts,
+  addContacts,
 } from '../redux/contacts/contact-operations';
-import { filterContacts, disabledForm } from '../redux/contacts/contact-actions';
-// import { filterContacts } from '../redux/contacts/contact-actions';
+// import { filterContacts, disabledForm } from '../redux/contacts/contact-actions';
+import { filterContacts } from '../redux/contacts/contact-actions';
 import s from './ContactsPage.module.css';
+import ContactEditForm  from '../components/ContactList/ContactEditForm';
+import Modal from '../components/Modal/Modal';
 
 export default function ContactsPage() {
   const contactsList = useSelector(getFilteredContacts);
@@ -38,9 +40,11 @@ export default function ContactsPage() {
   const contacts = useSelector(getContacts);
   // const [disabled, setDisabled] = useState('disabled')
   // const [disabled, setDisabled] = useState('')
-  const disabled = useSelector(getDisabled);
+  // const disabled = useSelector(getDisabled);
+  // const [isOpen, setIsOpen] = useState(false)
+  const [contact, setContact] = useState(null)
   // console.log(disabled);
-
+  const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,18 +57,27 @@ export default function ContactsPage() {
     dispatch(filterContacts(e.target.value));
   };
 
-  const onEditContact = id => {
-    // console.log(disabled);
-    // setDisabled('')
-    // dispatch(disabledForm(disabled))
-    // const contact = contacts.find
-// setDisabled(false)
-    // dispatch(editContacts(id));
-  }
+  const toggleModal = e => {
+    setShowModal(showModal => !showModal);
+  };
+
+    const onEditContact = id => {
+      const contact = contacts.find(contact => contact.id === id)
+      setContact(contact)
+      toggleModal()
+      // setIsOpen(true)
+      // console.log(disabled);
+      // setDisabled('')
+      // dispatch(disabledForm(disabled))
+      // const contact = contacts.find
+  // setDisabled(false)
+      // dispatch(editContacts(id));
+    }
 
   return (
     <>
       <Section title={'Phonebook'}>
+        {/* <ContactForm dispatchFunc={ addContacts}/> */}
         <ContactForm />
         <h2 className={s.title}>Contacts</h2>
         {contacts.length > 1 && (
@@ -72,10 +85,34 @@ export default function ContactsPage() {
         )}
         {errorMessage && <TechInfo message={errorMessage} />}
         {isLoading && <TechInfo message={'Loading...'} />}
-        {contactsList.length !== 0 && (
-          // <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} disabled={disabled}/>
-          <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} disabled={disabled}/>
+        {
+          contactsList.length !== 0 && (
+            // (
+            // {
+            // <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} disabled={disabled}/>
+            // <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} disabled={disabled} />
+            // (isOpen && <ContactEditForm contact={contact} />)
+            <>
+              <ContactList
+                contacts={contactsList}
+                onBtnClick={onDeleteContact}
+                // onEditBtnClick={toggleModal}
+                onEditBtnClick={onEditContact}
+              />
+              {/* <ContactList contacts={contactsList} onBtnClick={onDeleteContact} onEditBtnClick={onEditContact} /> */}
+              {/* (isOpen && <ContactEditForm contact={contact} />) */}
+              {/* <ContactEditForm contact={contact} /> */}
+            </>
+          )
+          // )
+        }
+        {showModal && (
+          <Modal onClose={toggleModal}>
+            <ContactEditForm contact={contact} closeFunction={ toggleModal}/>
+            {/* <ContactForm contact={contact} dispatchFunc={ editContacts}/> */}
+          </Modal>
         )}
+        {/* } */}
       </Section>
     </>
   );

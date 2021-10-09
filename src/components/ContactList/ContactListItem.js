@@ -1,62 +1,61 @@
 import { Button, ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
-import { ContactEditForm } from './ContactEditForm';
+// import { ContactEditForm } from './ContactEditForm';
 
-// export const ContactListItem = ({ contact, disabled, onBtnClick, onEditBtnClick }) => {
-//     const { id, name, number } = contact;
-//     return (
-//         // <ListGroup.Item variant="warning" className={s.contactItem} disabled={disabled}>
-//         <ListGroup.Item variant="warning" className={s.contactItem}>
-//             (disabled ?
-//             <>
-//           <span className={s.contactInfo}>
-//             {name}: {number}
-//           </span>
-//           <Button variant="outline-danger" onClick={onEditBtnClick}>
-//             Edit
-//                 </Button>
-//                 </>
-// :
-//           <ContactEditForm id={id} onBtnClick={onBtnClick} contact={ contact}/>
-//             )
-
-//           <Button variant="outline-danger" onClick={onBtnClick}>
-//             Delete
-//           </Button>
-//         </ListGroup.Item>
-//     )
-// }
 export const ContactListItem = ({
   contact,
-  disabled,
+  // disabled,
   onBtnClick,
   onEditBtnClick,
 }) => {
   const { id, name, number } = contact;
   return (
+    // <ListGroup.Item variant="warning" className={s.contactItem} disabled={disabled}>
     <ListGroup.Item variant="warning" className={s.contactItem}>
-          <ContactEditForm id={id} onBtnClick={onBtnClick} contact={contact} disabled={ disabled}/>
-       {/* (disabled ? */}
-
-          <Button variant="outline-danger" onClick={onEditBtnClick}>
-
-              Edit
-          </Button>
-          {/* :
-
-          <Button variant="outline-danger" onClick={onEditBtnClick}>
-
-              Edit approve
-      </Button> */}
-        {/* ) */}
-
+      <span className={s.contactInfo}>
+        {name}: {number}
+      </span>
+      <Button variant="outline-danger" onClick={onEditBtnClick}>
+        Edit
+      </Button>
       <Button variant="outline-danger" onClick={onBtnClick}>
         Delete
       </Button>
     </ListGroup.Item>
   );
 };
+// export const ContactListItem = ({
+//   contact,
+//   // disabled,
+//   onBtnClick,
+//   onEditBtnClick,
+// }) => {
+//   const { id, name, number } = contact;
+//   return (
+//     <ListGroup.Item variant="warning" className={s.contactItem}>
+//           {/* <ContactEditForm id={id} onBtnClick={onBtnClick} contact={contact} disabled={ disabled}/> */}
+//           <ContactEditForm id={id} onBtnClick={onBtnClick} contact={contact}/>
+//        {/* (disabled ? */}
+
+//           <Button variant="outline-danger" onClick={onEditBtnClick}>
+
+//               Edit
+//           </Button>
+//           {/* :
+
+//           <Button variant="outline-danger" onClick={onEditBtnClick}>
+
+//               Edit approve
+//       </Button> */}
+//         {/* ) */}
+
+//       <Button variant="outline-danger" onClick={onBtnClick}>
+//         Delete
+//       </Button>
+//     </ListGroup.Item>
+//   );
+// };
 // export const ContactListItem = ({ contact, disabled, onBtnClick, onEditBtnClick }) => {
 //     const { id, name, number } = contact;
 //     return (
