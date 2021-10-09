@@ -4,4 +4,12 @@ const filterContacts = createAction('contactList/filter', contact => ({
   payload: contact,
 }));
 
-export { filterContacts };
+// const disabledForm = createAction('contactList/disabled', contact => ({
+//   payload: contact.id,
+// }))
+const disabledForm = createAction('contactList/disabled', disabled => ({
+  payload: disabled,
+}))
+
+// export { filterContacts };
+export { filterContacts, disabledForm };

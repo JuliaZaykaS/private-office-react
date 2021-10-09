@@ -4,6 +4,7 @@ export const getContacts = state => state.contacts.contacts;
 export const getFilter = state => state.contacts.filteredContacts;
 export const getError = state => state.contacts.error;
 export const getIsLoading = state => state.contacts.isLoading;
+export const getDisabled = state => state.contacts.isDisabledForm;
 
 export const getFilteredContacts = createSelector(
   [getContacts, getFilter],
