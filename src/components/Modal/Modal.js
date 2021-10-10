@@ -1,28 +1,26 @@
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import s from "./Modal.module.css";
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import s from './Modal.module.css';
 
-const modal = document.querySelector("#modal-root");
+const modal = document.querySelector('#modal-root');
 
 export default function Modal({ onClose, clearModal, children }) {
   useEffect(() => {
-    window.addEventListener("keydown", onEscClick);
+    window.addEventListener('keydown', onEscClick);
     return () => {
-      window.removeEventListener("keydown", onEscClick);
+      window.removeEventListener('keydown', onEscClick);
     };
   });
 
-  const onEscClick = (e) => {
-    if (e.code === "Escape") {
+  const onEscClick = e => {
+    if (e.code === 'Escape') {
       onClose();
-    //   clearModal();
     }
   };
 
-  const onBackdropClick = (e) => {
+  const onBackdropClick = e => {
     if (e.target === e.currentTarget) {
       onClose();
-    //   clearModal();
     }
   };
 
@@ -30,6 +28,6 @@ export default function Modal({ onClose, clearModal, children }) {
     <div className={s.Overlay} onClick={onBackdropClick}>
       <div className={s.Modal}>{children}</div>
     </div>,
-    modal
+    modal,
   );
 }

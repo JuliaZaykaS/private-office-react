@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-// import { filterContacts } from './contact-actions';
-import { filterContacts, disabledForm } from './contact-actions';
+import { filterContacts } from './contact-actions';
 import {
   fetchContacts,
   addContacts,
@@ -19,10 +18,6 @@ const contacts = createReducer([], {
 
 const filteredContacts = createReducer('', {
   [filterContacts]: (_, action) => action.payload,
-});
-
-const isDisabledForm = createReducer('', {
-  [disabledForm]: (_, action) => action.payload,
 });
 
 const error = createReducer(null, {
@@ -55,11 +50,5 @@ export default combineReducers({
   filteredContacts,
   error,
   isLoading,
-  isDisabledForm,
 });
-// export default combineReducers({
-//   contacts,
-//   filteredContacts,
-//   error,
-//   isLoading,
-// });
+

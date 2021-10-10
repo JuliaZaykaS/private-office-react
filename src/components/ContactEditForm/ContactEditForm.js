@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import s from './ContactForm.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from '../../redux/contacts/contact-selectors';
-import { addContacts } from '../../redux/contacts/contact-operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { editContacts } from '../../redux/contacts/contact-operations';
 import { Form, Button } from 'react-bootstrap';
+import { getContacts } from '../../redux/contacts/contact-selectors';
 
-export default function ContactForm() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+export default function ContactEditForm({ contact, closeFunction }) {
+  const [name, setName] = useState(contact.name);
+  const [number, setNumber] = useState(contact.number);
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
@@ -23,13 +22,15 @@ export default function ContactForm() {
     }
   };
 
-  const onSubmitContact = (e) => {
+  const onSubmitContact = e => {
     e.preventDefault();
-    setName('');
-    setNumber('');
+
+    const { id } = contact;
+    const editedContact = { id, name, number };
 
     const doubleContact = contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase(),
+      contact =>
+        contact.id !== id && contact.name.toLowerCase() === name.toLowerCase(),
     );
 
     if (doubleContact) {
@@ -37,11 +38,14 @@ export default function ContactForm() {
       return;
     }
 
-    dispatch(addContacts({ name, number }));
+    dispatch(editContacts(editedContact));
+    setName('');
+    setNumber('');
+    closeFunction();
   };
 
   return (
-    <Form onSubmit={onSubmitContact} className={s.form}>
+    <Form onSubmit={onSubmitContact}>
       <Form.Group className="mb-3" controlId="floatingTextarea">
         <Form.Label>Name</Form.Label>
         <Form.Control
@@ -70,7 +74,7 @@ export default function ContactForm() {
         />
       </Form.Group>
       <Button variant="outline-primary" type="submit">
-        Add contact
+        Change contact
       </Button>
     </Form>
   );
