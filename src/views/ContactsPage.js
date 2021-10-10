@@ -23,8 +23,8 @@ import { useEffect, useState } from 'react';
 import {
   fetchContacts,
   deleteContacts,
-  editContacts,
-  addContacts,
+  // editContacts,
+  // addContacts,
 } from '../redux/contacts/contact-operations';
 // import { filterContacts, disabledForm } from '../redux/contacts/contact-actions';
 import { filterContacts } from '../redux/contacts/contact-actions';

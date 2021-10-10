@@ -87,7 +87,6 @@ import { Form, Button } from 'react-bootstrap';
 export default function ContactEditForm({contact, closeFunction}) {
 // export default function ContactForm({ contact, dispatchFunc }) {
   // const { name, number } = contact;
-  const { id } = contact;
   // console.log(contact.id);
   const [name, setName] = useState(contact.name);
   // const [formName, setFormName] = useState(contact?.name);
@@ -101,15 +100,16 @@ export default function ContactEditForm({contact, closeFunction}) {
     switch (name) {
       case 'name':
         return setName(value);
-      case 'number':
-        return setNumber(value);
-      default:
-        return;
-    }
-  };
+        case 'number':
+          return setNumber(value);
+          default:
+            return;
+          }
+        };
 
-  const onSubmitContact = (e) => {
-    e.preventDefault();
+        const onSubmitContact = (e) => {
+          e.preventDefault();
+          const { id } = contact;
 
     // const doubleContact = contacts.find(
       //   contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -119,8 +119,10 @@ export default function ContactEditForm({contact, closeFunction}) {
         //   alert(`${name} is already in contacts`);
         //   return;
         // }
+    const editedContact = { id, name, number }
 
-        dispatch(editContacts({ id, name, number }));
+        dispatch(editContacts(editedContact));
+        // dispatch(editContacts({ id, name, number }));
         setName('');
         setNumber('');
         closeFunction();
@@ -159,7 +161,7 @@ export default function ContactEditForm({contact, closeFunction}) {
         />
       </Form.Group>
       <Button variant="outline-primary" type="submit">
-        Add contact
+        Change contact
       </Button>
     </Form>
   );
