@@ -12,8 +12,11 @@ import {
   getIsCurrentUser,
   getError,
   getIsLoading,
+  getUserName,
+  getUserToken,
 } from '../../redux/auth/auth-selectors';
 import { getCurrentUser } from '../../redux/auth/auth-operations';
+
 import ContactsPage from '../../views/ContactsPage';
 
 export default function App() {
@@ -21,6 +24,8 @@ export default function App() {
   const currentUser = useSelector(getIsCurrentUser);
   const error = useSelector(getError);
   const isLoading = useSelector(getIsLoading);
+  const user = useSelector(getUserName)
+  const token = useSelector(getUserToken)
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -37,10 +42,12 @@ export default function App() {
             <PublicRoute exact path="/">
               <Section title={'Welcome to your wonderful phonebook'}></Section>
             </PublicRoute>
-            <PublicRoute exact path="/register" restricted redirectTo="/contacts">
+            {/* <PublicRoute exact path="/register" restricted redirectTo="/contacts"> */}
+            <PublicRoute exact path="/register" restricted redirectTo="/login">
               <Section title={'Registration'}>
                 <RegisterForm />
                 {isLoading && <TechInfo message={'Loading'} />}
+                {user && !token && <TechInfo message={'Please verify your email'} />}
                 {error && <TechInfo message={error} />}
               </Section>
             </PublicRoute>

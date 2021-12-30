@@ -9,8 +9,9 @@ const fetchContacts = createAsyncThunk(
     const persistToken = state.auth.token;
     tokenForFetch.set(persistToken);
     try {
-      const contacts = await axios.get('/contacts');
-      return contacts.data;
+      const contacts = await axios.get('/api/contacts');
+      // console.log(contacts);
+      return contacts.data.contacts.docs;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -19,17 +20,19 @@ const fetchContacts = createAsyncThunk(
 
 const addContacts = createAsyncThunk(
   'contacts/addContacts',
-  async ({ name, number }, thunkAPI) => {
+  async ({ name, phone, email }, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistToken = state.auth.token;
     tokenForFetch.set(persistToken);
     try {
-      const contact = await axios.post('/contacts', {
+      const contact = await axios.post('/api/contacts', {
         name,
-        number,
+        phone,
+        email,
       });
 
-      return contact.data;
+
+      return contact.data.contacts;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -38,13 +41,13 @@ const addContacts = createAsyncThunk(
 
 const deleteContacts = createAsyncThunk(
   'contacts/deleteContacts',
-  async (id, thunkAPI) => {
+  async (_id, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistToken = state.auth.token;
     tokenForFetch.set(persistToken);
     try {
-      await axios.delete(`/contacts/${id}`);
-      return id;
+      await axios.delete(`/api/contacts/${_id}`);
+      return _id;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -52,17 +55,19 @@ const deleteContacts = createAsyncThunk(
 );
 const editContacts = createAsyncThunk(
   'contacts/editContacts',
-  async ({ id, name, number }, thunkAPI) => {
+  async ({ _id, name, phone, email }, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistToken = state.auth.token;
     tokenForFetch.set(persistToken);
     try {
-      const contacts = await axios.patch(`/contacts/${id}`, {
+      const contacts = await axios.patch(`/api/contacts/${_id}`, {
         name,
-        number,
+        phone,
+        email,
       });
+      console.log('edit', contacts);
 
-      return contacts.data;
+      return contacts.data.contact;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

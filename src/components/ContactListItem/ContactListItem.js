@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import s from './ContactListItem.module.css';
 
 export const ContactListItem = ({ contact, onBtnClick, onEditBtnClick }) => {
-  const { name, number } = contact;
+  const { name, phone, email } = contact;
   return (
     <ListGroup.Item variant="warning" className={s.contactItem}>
       <span className={s.contactInfo}>
-        {name}: {number}
+        {name}: {phone} : {email}
       </span>
       <div>
         <Button
@@ -31,8 +31,8 @@ export const ContactListItem = ({ contact, onBtnClick, onEditBtnClick }) => {
 
 ContactListItem.propTypes = {
   contact: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
   }),
 };

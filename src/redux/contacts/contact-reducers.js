@@ -10,10 +10,12 @@ import {
 
 const contacts = createReducer([], {
   [fetchContacts.fulfilled]: (_, action) => action.payload,
+  // [fetchContacts.fulfilled]: (_, action) => action.payload.contacts.docs,
   [addContacts.fulfilled]: (state, action) => [...state, action.payload],
-  [editContacts.fulfilled]: (state, action) => [action.payload, ...state.filter(({id}) => id!==action.payload.id)],
+  [editContacts.fulfilled]: (state, action) =>[action.payload, ...state.filter(({_id}) => _id!==action.payload._id)],
+
   [deleteContacts.fulfilled]: (state, action) =>
-    state.filter(contact => contact.id !== action.payload),
+    state.filter(contact => contact._id !== action.payload),
 });
 
 const filteredContacts = createReducer('', {

@@ -7,7 +7,8 @@ import { Form, Button } from 'react-bootstrap';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
@@ -16,8 +17,10 @@ export default function ContactForm() {
     switch (name) {
       case 'name':
         return setName(value);
-      case 'number':
-        return setNumber(value);
+      case 'phone':
+        return setPhone(value);
+      case 'email':
+        return setEmail(value);
       default:
         return;
     }
@@ -26,7 +29,8 @@ export default function ContactForm() {
   const onSubmitContact = (e) => {
     e.preventDefault();
     setName('');
-    setNumber('');
+    setPhone('');
+    setEmail('');
 
     const doubleContact = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -37,7 +41,8 @@ export default function ContactForm() {
       return;
     }
 
-    dispatch(addContacts({ name, number }));
+    // dispatch(addContacts({ name, number }));
+    dispatch(addContacts({ name, phone, email }));
   };
 
   return (
@@ -61,11 +66,24 @@ export default function ContactForm() {
         <Form.Control
           placeholder="Enter number"
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
-          value={number}
+          value={phone}
+          onChange={onChangeInput}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="floatingTextarea">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          placeholder="Enter email"
+          type="email"
+          name="email"
+          pattern="^((([0-9A-Za-z]{1}[-0-9A-z.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$"
+          title="Email должен быть реальным, содержать @"
+          required
+          value={email}
           onChange={onChangeInput}
         />
       </Form.Group>

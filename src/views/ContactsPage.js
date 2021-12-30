@@ -48,7 +48,7 @@ export default function ContactsPage() {
   };
 
   const onEditContact = id => {
-    const contact = contacts.find(contact => contact.id === id);
+    const contact = contacts.find(contact => contact._id === id);
     setContact(contact);
     toggleModal();
   };
