@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { register, logIn, logOut, getCurrentUser, verify } from './auth-operations';
-import { register, logIn, logOut, getCurrentUser } from './auth-operations';
+import { register, logIn, logOut, getCurrentUser, verify } from './auth-operations';
+// import { register, logIn, logOut, getCurrentUser } from './auth-operations';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -12,7 +12,7 @@ const authSlice = createSlice({
     isGetCurrentUser: false,
     error: null,
     isLoading: false,
-    verify: null,
+    // verify: null,
   },
   extraReducers: {
     [register.pending](state, action) {
@@ -21,32 +21,33 @@ const authSlice = createSlice({
     },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
-      state.verify = false;
+      // state.verify = false;
       // state.token = action.payload.token;
       // state.isLoggedIn = true;
       state.isLoggedIn = false;
+      // state.isLoading = false;
       state.isLoading = false;
     },
     [register.rejected](state, action) {
       state.error = action.payload;
       state.isLoading = false;
     },
-    // [verify.pending](state, action) {
-    //   state.error = null;
-    //   state.isLoading = true;
-    // },
-    // [verify.fulfilled](state, action) {
-    //   // state.user = action.payload.user;
-    //   state.token = action.payload.token;
-    //   state.isLoggedIn = true;
-    //   state.verify = true;
-    //   // state.isLoggedIn = false;
-    //   state.isLoading = false;
-    // },
-    // [verify.rejected](state, action) {
-    //   state.error = action.payload;
-    //   state.isLoading = false;
-    // },
+    [verify.pending](state, action) {
+      state.error = null;
+      state.isLoading = true;
+    },
+    [verify.fulfilled](state, action) {
+      // state.user = action.payload.user;
+      // state.token = action.payload.token;
+      // state.isLoggedIn = true;
+      // state.verify = true;
+      // state.isLoggedIn = false;
+      state.isLoading = false;
+    },
+    [verify.rejected](state, action) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
     [logIn.pending](state, action) {
       state.isLoading = true;
       state.error = null;

@@ -8,24 +8,32 @@ const register = createAsyncThunk(
     try {
       const { data } = await axios.post('/users/signup', credentials);
       // tokenForFetch.set(data.token);
+      // console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
-// const verify = createAsyncThunk(
-//   'auth/verify',
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post('/users/verify', credentials);
-//       tokenForFetch.set(data.token);
-//       return data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   },
-// );
+const verify = createAsyncThunk(
+  'auth/verify',
+  async (credentials, thunkAPI) => {
+  // async ({email}, thunkAPI) => {
+    console.log('credentials',credentials);
+    // const email = credentials
+    try {
+      // const { data } = await axios.post('/users/verify', credentials);
+      // const { data } = await axios.post('/users/verify', email);
+    // await axios.post('/users/verify', email );
+    await axios.post('/users/verify',  credentials);
+    // await axios.post('/users/verify', email);
+      // tokenForFetch.set(data.token);
+      // return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
 
 const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
@@ -60,5 +68,5 @@ const getCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   }
 });
 
-// export { register, logIn, logOut, getCurrentUser, verify };
-export { register, logIn, logOut, getCurrentUser};
+export { register, logIn, logOut, getCurrentUser, verify };
+// export { register, logIn, logOut, getCurrentUser};

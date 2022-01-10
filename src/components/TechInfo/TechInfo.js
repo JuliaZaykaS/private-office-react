@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
-import { Spinner } from 'react-bootstrap';
-export default function TechInfo({ message }) {
+// import { Spinner } from 'react-bootstrap';
+// export default function TechInfo({ message, loader = true }) {
+  export default function TechInfo({ message, children}) {
   return (
     <>
       <h2>{message}</h2>
-      <Spinner animation="grow" variant="primary" />
+      {children}
+      {/* {loader && */}
+      {/* <Spinner animation="grow" variant="primary" /> */}
+      {/* } */}
     </>
   );
 }

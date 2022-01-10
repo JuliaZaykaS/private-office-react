@@ -14,10 +14,13 @@ import {
   getIsLoading,
   getUserName,
   getUserToken,
+  getUserEmail,
 } from '../../redux/auth/auth-selectors';
-import { getCurrentUser } from '../../redux/auth/auth-operations';
+import { getCurrentUser, verify } from '../../redux/auth/auth-operations';
 
 import ContactsPage from '../../views/ContactsPage';
+import { Spinner } from 'react-bootstrap';
+import {Link} from '../Link/Link'
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ export default function App() {
   const isLoading = useSelector(getIsLoading);
   const user = useSelector(getUserName)
   const token = useSelector(getUserToken)
+  const email = useSelector(getUserEmail)
+  console.log('from app', email);
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -42,24 +47,45 @@ export default function App() {
             <PublicRoute exact path="/">
               <Section title={'Welcome to your wonderful phonebook'}></Section>
             </PublicRoute>
-            {/* <PublicRoute exact path="/register" restricted redirectTo="/contacts"> */}
-            <PublicRoute exact path="/register" restricted redirectTo="/login">
+            <PublicRoute exact path="/register" restricted redirectTo="/contacts">
+            {/* <PublicRoute exact path="/register" restricted redirectTo="/login"> */}
+            {/* <PublicRoute exact path="/register" redirectTo='/login'> */}
               <Section title={'Registration'}>
                 <RegisterForm />
-                {isLoading && <TechInfo message={'Loading'} />}
-                {user && !token && <TechInfo message={'Please verify your email'} />}
+                {isLoading &&
+                <TechInfo message={'Loading'}>
+                  <Spinner animation="grow" variant="primary" />
+                </TechInfo>
+                }
+                {user && !token &&
+                <TechInfo message={'Please verify your email'}>
+                  <TechInfo message={'If you can not find message'}>
+                    {/* <a>click here</a> */}
+                    <Link message={'click here'} onClickLink={()=> dispatch(verify({email}))}></Link>
+
+                </TechInfo>
+                </TechInfo>
+                }
                 {error && <TechInfo message={error} />}
               </Section>
             </PublicRoute>
             <PublicRoute path="/login" restricted redirectTo="/contacts">
               <Section title={'Login'}>
                 <LoginForm />
-                {isLoading && <TechInfo message={'Loading'} />}
+                {isLoading &&
+                <TechInfo message={'Loading'}>
+                <Spinner animation="grow" variant="primary" />
+                </TechInfo>
+                }
                 {error && <TechInfo message={error} />}
               </Section>
             </PublicRoute>
             <PrivateRoute path="/contacts" redirectTo="/login">
-              {isLoading ? <TechInfo message={'Loading'} /> : <ContactsPage />}
+              {isLoading ?
+              <TechInfo message={'Loading'}>
+              <Spinner animation="grow" variant="primary" />
+              </TechInfo>
+              : <ContactsPage />}
             </PrivateRoute>
           </Switch>
         </>
