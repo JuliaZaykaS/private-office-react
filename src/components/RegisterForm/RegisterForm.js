@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/auth-operations';
+import s from './RegisterForm.module.css'
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function RegisterForm() {
     setPassword('');
   };
   return (
-    <div>
+    <div className={s.form}>
       <Form onSubmit={onSubmitRegister}>
         <Form.Group className="mb-3" controlId="floatingTextarea">
           <Form.Label>Name</Form.Label>

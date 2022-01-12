@@ -6,7 +6,8 @@ import { getContacts } from '../../redux/contacts/contact-selectors';
 
 export default function ContactEditForm({ contact, closeFunction }) {
   const [name, setName] = useState(contact.name);
-  const [number, setNumber] = useState(contact.number);
+  const [phone, setPhone] = useState(contact.phone);
+  const [email, setEmail] = useState(contact.email);
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
@@ -15,8 +16,10 @@ export default function ContactEditForm({ contact, closeFunction }) {
     switch (name) {
       case 'name':
         return setName(value);
-      case 'number':
-        return setNumber(value);
+      case 'phone':
+        return setPhone(value);
+      case 'email':
+        return setEmail(value);
       default:
         return;
     }
@@ -25,12 +28,14 @@ export default function ContactEditForm({ contact, closeFunction }) {
   const onSubmitContact = e => {
     e.preventDefault();
 
-    const { id } = contact;
-    const editedContact = { id, name, number };
+    const { _id } = contact;
+    console.log(contact);
+    const editedContact = { _id, name, phone, email };
+    console.log('editedContact', editedContact);
 
     const doubleContact = contacts.find(
       contact =>
-        contact.id !== id && contact.name.toLowerCase() === name.toLowerCase(),
+        contact._id !== _id && contact.name.toLowerCase() === name.toLowerCase(),
     );
 
     if (doubleContact) {
@@ -40,7 +45,8 @@ export default function ContactEditForm({ contact, closeFunction }) {
 
     dispatch(editContacts(editedContact));
     setName('');
-    setNumber('');
+    setPhone('');
+    setEmail('');
     closeFunction();
   };
 
@@ -65,11 +71,24 @@ export default function ContactEditForm({ contact, closeFunction }) {
         <Form.Control
           placeholder="Enter number"
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
-          value={number}
+          value={phone}
+          onChange={onChangeInput}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="floatingTextarea">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          placeholder="Enter email"
+          type="email"
+          name="email"
+          pattern="^((([0-9A-Za-z]{1}[-0-9A-z.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$"
+          title="Email должен быть реальным, содержать @"
+          required
+          value={email}
           onChange={onChangeInput}
         />
       </Form.Group>

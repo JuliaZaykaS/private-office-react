@@ -6,12 +6,12 @@ export default function ContactList({ contacts, onBtnClick, onEditBtnClick }) {
     <ListGroup variant="flush">
       {contacts.map(contact => (
         <ContactListItem
-          key={contact.id}
-          id={contact.id}
+          key={contact._id}
+          id={contact._id}
           name={contact.name}
-          number={contact.number}
-          onBtnClick={() => onBtnClick(contact.id)}
-          onEditBtnClick={() => onEditBtnClick(contact.id)}
+          number={contact.phone}
+          onBtnClick={() => onBtnClick(contact._id)}
+          onEditBtnClick={() => onEditBtnClick(contact._id)}
           contact={contact}
         ></ContactListItem>
       ))}
@@ -20,7 +20,5 @@ export default function ContactList({ contacts, onBtnClick, onEditBtnClick }) {
 }
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.object,
-  ),
+  contacts: PropTypes.arrayOf(PropTypes.object),
 };

@@ -7,10 +7,19 @@ const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await axios.post('/users/signup', credentials);
-      tokenForFetch.set(data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  },
+);
+const verify = createAsyncThunk(
+  'auth/verify',
+  async (credentials, thunkAPI) => {
+    try {
+      await axios.post('/users/verify', credentials);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   },
 );
@@ -21,7 +30,7 @@ const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
     tokenForFetch.set(data.token);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
 const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
@@ -29,7 +38,7 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     tokenForFetch.unset();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
 
@@ -44,8 +53,8 @@ const getCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
     const { data } = await axios.get('/users/current');
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
 
-export { register, logIn, logOut, getCurrentUser };
+export { register, logIn, logOut, getCurrentUser, verify };
