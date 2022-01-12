@@ -29,9 +29,7 @@ export default function ContactEditForm({ contact, closeFunction }) {
     e.preventDefault();
 
     const { _id } = contact;
-    console.log(contact);
     const editedContact = { _id, name, phone, email };
-    console.log('editedContact', editedContact);
 
     const doubleContact = contacts.find(
       contact =>
