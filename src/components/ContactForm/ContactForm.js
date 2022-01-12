@@ -26,7 +26,7 @@ export default function ContactForm() {
     }
   };
 
-  const onSubmitContact = (e) => {
+  const onSubmitContact = e => {
     e.preventDefault();
     setName('');
     setPhone('');
@@ -41,7 +41,6 @@ export default function ContactForm() {
       return;
     }
 
-    // dispatch(addContacts({ name, number }));
     dispatch(addContacts({ name, phone, email }));
   };
 

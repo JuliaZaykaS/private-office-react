@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://backend-for-phonebook.herokuapp.com/';
-axios.defaults.baseURL = 'http://localhost:5555/';
+axios.defaults.baseURL = 'https://backend-for-phonebook.herokuapp.com/';
 
 const tokenForFetch = {
   set(token) {

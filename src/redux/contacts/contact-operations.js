@@ -10,7 +10,6 @@ const fetchContacts = createAsyncThunk(
     tokenForFetch.set(persistToken);
     try {
       const contacts = await axios.get('/api/contacts');
-      // console.log(contacts);
       return contacts.data.contacts.docs;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

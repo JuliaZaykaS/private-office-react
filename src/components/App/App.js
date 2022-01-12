@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-// import { useEffect, useState } from 'react';
 import { Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Section from '../Section/Section';
@@ -27,13 +26,10 @@ export default function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(getIsCurrentUser);
   const error = useSelector(getError);
-  // console.log(error);
   const isLoading = useSelector(getIsLoading);
   const user = useSelector(getUserName);
   const token = useSelector(getUserToken);
   const email = useSelector(getUserEmail);
-  // const [err, setErr] = useState(error)
-  // console.log('from app', email);
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -56,7 +52,6 @@ export default function App() {
               restricted
               redirectTo="/contacts"
             >
-
               <Section title={'Registration'}>
                 <RegisterForm />
                 {isLoading && (

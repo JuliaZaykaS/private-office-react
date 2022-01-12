@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, getCurrentUser, verify } from './auth-operations';
-// import { register, logIn, logOut, getCurrentUser } from './auth-operations';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -12,7 +11,6 @@ const authSlice = createSlice({
     isGetCurrentUser: false,
     error: null,
     isLoading: false,
-    // verify: null,
   },
   extraReducers: {
     [register.pending](state, action) {
@@ -21,11 +19,7 @@ const authSlice = createSlice({
     },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
-      // state.verify = false;
-      // state.token = action.payload.token;
-      // state.isLoggedIn = true;
       state.isLoggedIn = false;
-      // state.isLoading = false;
       state.isLoading = false;
     },
     [register.rejected](state, action) {
@@ -37,11 +31,6 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [verify.fulfilled](state, action) {
-      // state.user = action.payload.user;
-      // state.token = action.payload.token;
-      // state.isLoggedIn = true;
-      // state.verify = true;
-      // state.isLoggedIn = false;
       state.isLoading = false;
     },
     [verify.rejected](state, action) {
@@ -59,8 +48,6 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [logIn.rejected](state, action) {
-      // console.log('error action',action);
-      // console.log('error payload',action.payload);
       state.error = action.payload;
       state.isLoading = false;
     },
