@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { tokenForFetch } from '../../services/contacts-api';
 
@@ -11,7 +12,8 @@ const register = createAsyncThunk(
       // console.log(data);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      // return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data.message)
     }
   },
 );
@@ -30,7 +32,8 @@ const verify = createAsyncThunk(
       // tokenForFetch.set(data.token);
       // return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      // return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data.message)
     }
   },
 );
@@ -41,7 +44,10 @@ const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
     tokenForFetch.set(data.token);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    // console.log('error', error);
+    // console.log('error body', error.response.data.message);
+    // return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
 const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
@@ -49,7 +55,8 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     tokenForFetch.unset();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    // return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message)
   }
 });
 
@@ -64,9 +71,11 @@ const getCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
     const { data } = await axios.get('/users/current');
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    // return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data.message)
   }
 });
+
 
 export { register, logIn, logOut, getCurrentUser, verify };
 // export { register, logIn, logOut, getCurrentUser};

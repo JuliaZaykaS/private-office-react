@@ -1,9 +1,12 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
-export const Link = ({message, link, onClickLink}) => {
+export const Link = ({message, onClickLink}) => {
     return (
-        <a href={link} onClick={onClickLink}>
-{message}
-        </a>
+        <>
+
+        <Button variant="link" type={'button'} onClick={onClickLink}>{message}</Button>
+        </>
+
     )
 }

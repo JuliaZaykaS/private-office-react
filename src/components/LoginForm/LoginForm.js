@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/auth-operations';
+import s from './LoginForm.module.css'
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function LoginForm() {
   };
 
   return (
-    <>
+    <div className={s.form}>
       <Form onSubmit={onSubmitLogin}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
@@ -58,6 +59,6 @@ export default function LoginForm() {
           Log In
         </Button>
       </Form>
-    </>
+    </div>
   );
 }

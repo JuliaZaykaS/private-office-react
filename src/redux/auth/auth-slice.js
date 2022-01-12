@@ -59,6 +59,8 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [logIn.rejected](state, action) {
+      // console.log('error action',action);
+      // console.log('error payload',action.payload);
       state.error = action.payload;
       state.isLoading = false;
     },
