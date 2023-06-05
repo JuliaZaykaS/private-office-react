@@ -20,4 +20,4 @@
 
 4. Бекенд написан мной
  [ссылка на репозиторий](https://github.com/JuliaZaykaS/nodejs-hw-rest-api)
- [ссылка на документацию](https://backend-for-phonebook.up.railway.app/api-docs/)
+ [ссылка на документацию](https://backendforphonebook-sys55.b4a.run/api-docs/)
